@@ -7,6 +7,9 @@ public class Main {
         task3();
         task4();
         task5();
+        // Дополнительные задачи
+        task6();
+        task7();
     }
 
     public static void task1() {
@@ -91,5 +94,46 @@ public class Main {
                     break;
             }
         }
+    }
+
+    public static void task6() {
+        int age = 25;
+        int salary = 90_000;
+
+        int limit = (age >= 23) ? 3 * salary : 2 * salary;
+        if (salary >= 80000) {
+            limit *= 1.5;
+        } else if (salary >= 50000) {
+            limit *= 1.2;
+        }
+        System.out.println("Мы готовы выдать вам кредитную карту с лимитом " + limit + " рублей");
+    }
+
+    public static void task7() {
+        int age = 22;
+        int salary = 40000;
+        int wantedSum = 330_000;
+        double base = 10.0;                         // % ставка годовых
+        int monthCredit = 12;
+        double maxPaymentMonth = salary * 0.5;      // 50 % от зарплаты
+        double totalSum;                            // сумма к возврату
+        double paymentMonth;
+        String result = "Отказано";
+
+        double creditRate = (salary > 80000) ? base - 0.7 : base;   // Итоговая процентная ставка %
+        if (age < 23) {
+            creditRate += 1.0;
+        } else if (age < 30) {
+            creditRate += 0.5;
+        }
+        totalSum = wantedSum * (1 + creditRate / 100);
+        paymentMonth = totalSum / monthCredit;
+        if (maxPaymentMonth > paymentMonth) {
+            result = "Одобрено";
+        } else {
+            result = "Отказано";
+        }
+        System.out.printf("Максимальный платеж при ЗП %d равен %.2f рублей. " +
+                "Платеж по кредиту %.2f рублей. %s", salary, maxPaymentMonth, paymentMonth, result);
     }
 }
